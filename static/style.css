@@ -7,6 +7,13 @@
     --accent-color: #475569;
 }
 
+@font-face {
+  font-family: "Noto Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
 body {
     font-family: "Noto Sans", sans-serif;
     font-optical-sizing: auto;

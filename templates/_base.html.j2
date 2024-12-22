@@ -7,7 +7,19 @@
     <meta name="description" content="{% block description %}{% endblock %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900&display=swap" rel="stylesheet">
+    <link
+        rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900&display=swap"
+        as="style"
+        onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900&display=swap"
+            rel="stylesheet"
+            type="text/css"
+        />
+    </noscript>
     <script src="/static/tailwind.css"></script>
     <link rel="stylesheet" href="/static/tabler-icons.min.css">
     <link rel="stylesheet" href="/static/style.css">
