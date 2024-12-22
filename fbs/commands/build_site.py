@@ -20,7 +20,7 @@ from xml.etree import ElementTree as ET
 
 # project
 from fbs.logger import LOGGER
-from fbs.sources.govinfo.govinfo_types import get_bill_slug
+from fbs.sources.govinfo.govinfo_types import get_bill_slug, BILL_VERSION_CODES
 
 # Constants
 DEFAULT_BILLS_PATH = Path.home() / ".cache" / "fbs" / "bills"
@@ -129,6 +129,9 @@ def group_bills_by_month(bills: List[Dict[str, Any]]) -> Dict[str, BillGroup]:
         groups[year_month].bills.append(
             {
                 "legis_num": bill["legis_num"],
+                "bill_version_description": BILL_VERSION_CODES.get(
+                    bill["bill_version"], "Unknown"
+                ),
                 "title": bill["title"],
                 "date": bill["date"],
                 "num_pages": bill.get("num_pages", 0),

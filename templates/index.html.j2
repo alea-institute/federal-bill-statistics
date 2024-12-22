@@ -25,6 +25,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                                 <h3 class="font-medium text-lg">
                                     <a href="{{ bill.slug }}.html" class="text-blue-600 hover:text-blue-800 hover:underline">{{ bill.legis_num }}</a>
+                                    <span class="text-gray-600/50">({{  bill.bill_version_description }})</span>
                                 </h3>
                                 <div class="flex items-center gap-4">
                                     <span class="text-sm text-gray-500">{{ bill.date }}</span>
