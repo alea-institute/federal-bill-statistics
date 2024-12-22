@@ -1,0 +1,199 @@
+{% extends "_base.html.j2" %}
+
+{% block title %}About usbills.ai{% endblock %}
+
+{% block description %}How usbills.ai works and what its metrics mean{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl font-semibold text-gray-800">About this project</h1>
+        <p class="text-gray-600 mt-2">How we analyze US federal legislation</p>
+    </header>
+
+    <div class="bg-white rounded-lg shadow-lg p-6 sm:p-8 space-y-8">
+        <!-- Introduction -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Overview</h2>
+            <div class="prose prose-sm max-w-none text-justify">
+                <p class="mb-2">
+                    usbills.ai is an open source project that intends to help the general public understand
+                    US Federal legislation.</p>
+                <p class="mb-2">
+                    You can look at or help improve the source code that created this website on GitHub:<br />
+                    <strong><a target="_blank" href="https://github.com/alea-institute/federal-bill-statistics/">https://github.com/alea-institute/federal-bill-statistics/</a></strong>
+                </p>
+
+                <p class="font-medium mb-2">
+                    The project provides automated analysis of US federal legislation using a combination of
+                    traditional natural language processing and large language models.  As such, it might be incomplete,
+                    inaccurate, or otherwise inappropriate for you to rely on.  This automated analysis is meant to
+                    complement, not replace, your own review of bills. Always read the original bill text and
+                    consult qualified legal professionals for legal advice.
+                </p>
+                <p class="text-sm text-gray-600 italic mb-2">
+                    Note: AI-generated content is marked with an <span class="ai-tag">AI</span> tag.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bulk download from /index.json -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Bulk Data Download</h2>
+            <div class="prose prose-sm max-w-none text-justify">
+                <p class="mb-2">
+                    You can download a complete copy of all metadata, statistics, and generated commentary
+                    for all bills in JSON format below.
+                </p>
+                <p class="mb-2">
+                    <a href="/index.json" class="link">Download all bills</a>
+                </p>
+                <p class="mb-2">
+                    This JSON file is updated daily, and while it does not contain the text, Markdown, or HTML rendering
+                    of the bills, it does contain links to each bill's complete JSON copy in the `json_url` field.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- Data Collection -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">How We Get Bills</h2>
+            <div class="prose prose-sm max-w-none text-justify">
+                <p>
+                    We retrieve bills directly from the govinfo.gov API, an official source for US federal legislative
+                    information operated by the Government Publishing Office (GPO). For each bill:
+                </p>
+                <ul class="mb-2 list-disc list-inside prose text-left">
+                    <li>We download the official metadata and XML version</li>
+                    <li>We parse and extract the bill content, structure, and key information</li>
+                    <li>We store this in a standardized format for subsequent analysis</li>
+                </ul>
+                <p class="mt-2">
+                    Bills are updated daily as new versions become available in the govinfo.gov API. We maintain links
+                    to the original source documents so you can always verify the information.
+                </p>
+            </div>
+        </section>
+
+        <!-- Analysis Process -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Our Analysis Process</h2>
+            <div class="prose prose-sm max-w-none text-justify">
+                <h3 class="font-medium mb-2">Traditional NLP Analysis</h3>
+                <p>
+                    We first analyze bills using traditional natural language processing techniques:
+                </p>
+                <ul class="mb-2 list-disc list-inside prose text-left">
+                    <li>Tokenization - Breaking text into individual words and punctuation</li>
+                    <li>Syntactic parsing and part-of-speech tagging - Identifying nouns, verbs, adjectives, etc.</li>
+                    <li>Named entity recognition - Identifying organizations, people, locations, etc.</li>
+                </ul>
+
+                <h3 class="font-medium mb-2 mt-4">Large Language Model Analysis</h3>
+                <p>
+                    We then use state-of-the-art large language models to provide:
+                </p>
+                <ul class="mb-2 list-disc list-inside prose text-left">
+                    <li>Plain language summaries of bill sections and overall content</li>
+                    <li>Key issue identification and analysis</li>
+                    <li>ELI5 ("Explain Like I'm 5") descriptions</li>
+                    <li>Commentary on potential implications</li>
+                    <li>Filter named entities for relevance and importance</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Metrics Guide -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Understanding Our Metrics</h2>
+            <div class="prose prose-sm max-w-none text-justify space-y-4">
+                <div>
+                    <h3 class="font-medium mb-2">Basic Metrics</h3>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li><strong>Sections</strong>: Number of major divisions in the bill</li>
+                        <li><strong>Words/Tokens</strong>: Total count of words in the bill</li>
+                        <li><strong>Characters</strong>: Total count of characters (excluding whitespace)</li>
+                        <li><strong>Sentences</strong>: Total number of sentences</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-2">Language Statistics</h3>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li><strong>Parts of Speech</strong>: Counts of nouns, verbs, adjectives, etc.</li>
+                        <li><strong>Key Phrases</strong>: Important terms and their frequency</li>
+                        <li><strong>Entity Counts</strong>: Mentions of organizations, people, places, etc.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-2">Complexity Metrics</h3>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li>
+                            <strong>Average Word Length</strong>: Longer words often indicate more technical content
+                        </li>
+                        <li>
+                            <strong>Average Sentence Length</strong>: Longer sentences can indicate more complex ideas
+                        </li>
+                        <li><strong>Token Entropy</strong>: Measures vocabulary diversity and complexity. Higher values indicate more diverse/complex language.</li>
+                        <li>
+                            <strong><a class="link" href="https://en.wikipedia.org/wiki/Automated_readability_index" target="_blank">Automated Readability Index (ARI)</a></strong>: Estimates the age or years of education
+                            needed to understand the text
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="font-medium mb-2">Deciles</h3>
+                    <p>
+                        Many metrics show a decile ranking (1-10) comparing the bill to other bills:
+                    </p>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li><strong>Deciles 1-3</strong>: Lower than typical (green)</li>
+                        <li><strong>Deciles 4-7</strong>: Typical range (yellow)</li>
+                        <li><strong>Deciles 8-10</strong>: Higher than typical (red)</li>
+                    </ul>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        Example: A bill in the 9th decile for token count means it has more words than 
+                        about 80-90% of bills.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Important Notes -->
+        <section>
+            <h2 class="text-2xl font-semibold mb-4">Important Notes</h2>
+            <div class="prose prose-sm max-w-none text-justify space-y-4">
+                <div class="p-4 bg-red-50 rounded-lg">
+                    <h3 class="font-medium mb-2">AI Content Limitations</h3>
+                    <p>
+                        Content marked with <span class="ai-tag">AI</span> is generated by large language models and:
+                    </p>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li>May contain errors or misinterpretations</li>
+                        <li>Should not be treated as legal advice</li>
+                        <li>Is meant to supplement, not replace, human analysis</li>
+                        <li>May reflect biases present in training data</li>
+                    </ul>
+                    <p>The model used to generate each bill's content is displayed in the footer.</p>
+                </div>
+
+                <div class="p-4 bg-yellow-50 rounded-lg">
+                    <h3 class="font-medium mb-2">Reading Original Sources</h3>
+                    <p>
+                        We strongly encourage users to:
+                    </p>
+                    <ul class="mb-2 list-disc list-inside prose text-left">
+                        <li>Read the original bill text using the provided govinfo.gov links</li>
+                        <li>Verify any important information against official sources</li>
+                        <li>Consult qualified legal professionals for legal advice</li>
+                        <li>Use our analysis as a starting point for deeper research</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+:root {
+    --primary-color: #334155;
+    --primary-hover: #1e293b;
+    --secondary-color: #64748b;
+    --background-color: #f8fafc;
+    --surface-color: #ffffff;
+    --accent-color: #475569;
+}
+
+body {
+    font-family: "Noto Sans", sans-serif;
+    font-optical-sizing: auto; 
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--background-color);
+}
+
+.nav-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+.nav-link:hover {
+    background-color: var(--accent-color);
+    color: var(--surface-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.tag {
+    background-color: #cdcdcdcc;
+    color: #343434cc;
+}
+
+.ai-tag {
+    /* make it sup, bold, and bright blue */
+    color: #007bff;
+    font-weight: bold;
+    font-size: 0.75em;
+    vertical-align: super;
+    margin-left: 0.25em;
+}
+
+.link {
+    color: #007bff;
+    font-weight: bold;
+}
+
+:target {
+    scroll-margin-top: 160px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+@media print {
+    @page {
+        margin: 0;
+    }
+
+    body {
+        background-color: white;
+        margin: 1.6cm;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}

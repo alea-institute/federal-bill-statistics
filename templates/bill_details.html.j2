@@ -1,0 +1,528 @@
+{% extends "_base.html.j2" %}
+
+
+{% block title %}{{ data.legis_num }} {{ data.title }} — Bill Summary{% endblock %}
+
+{% block description %}{{ data.summary|escape }}{% endblock %}
+
+{% block head %}
+<meta name="DC.title" content="{{ data.legis_num }} {{ data.title|escape }} — Bill Summary">
+<meta name="DC.creator" content="ALEA Institute">
+<meta name="DC.subject" content="{{ data.legis_num }}, {{ data.title|escape }}, {{ data.date }}">
+<meta name="DC.description" content="{{ data.summary|escape }}">
+<meta name="DC.publisher" content="ALEA Institute">
+<meta name="DC.date" content="{{ data.date }}">
+<meta name="keywords" content="{{ data.keyword_string|escape }}">
+
+<script type="text/javascript">
+// Wait for DOM to be fully loaded
+document.addEventListener('DOMContentLoaded', function () {
+    // Get the menu button and mobile menu elements
+    const menuButton = document.querySelector('[type="button"]');
+    const mobileMenu = document.querySelector('.md\\:hidden.hidden');
+
+    // Toggle menu when button is clicked
+    menuButton.addEventListener('click', function () {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu when clicking outside (optional but recommended)
+    document.addEventListener('click', function (event) {
+        if (!menuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+            mobileMenu.classList.add('hidden');
+        }
+    });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+    <header class="w-full bg-white shadow-sm fixed top-0 left-0 right-0 z-50">
+        <!-- Main navigation container -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 no-print">
+            <nav class="flex items-center justify-between h-16">
+                <!-- Left side - Back button -->
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                </div>
+
+                <!-- Center - Navigation Links (Hidden on mobile) -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#overview"
+                       class="text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-blue-500 px-1 py-2 text-sm font-medium transition-all">Overview</a>
+                    <a href="#analysis"
+                       class="text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-blue-500 px-1 py-2 text-sm font-medium transition-all">Analysis</a>
+                    <a href="#issues"
+                       class="text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-blue-500 px-1 py-2 text-sm font-medium transition-all">Issues</a>
+                    <a href="#stats"
+                       class="text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-blue-500 px-1 py-2 text-sm font-medium transition-all">Stats</a>
+                    <a href="#sections"
+                       class="text-gray-600 hover:text-gray-900 hover:border-b-2 hover:border-blue-500 px-1 py-2 text-sm font-medium transition-all">Sections</a>
+                </div>
+
+                <!-- Right side - Action Buttons -->
+                <div class="flex items-center space-x-4">
+                    <a href="{{ data.pdf_url }}"
+                       class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        PDF
+                    </a>
+                    <a href="{{ data.json_url }}"
+                       class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                        JSON
+                    </a>
+
+                    <!-- Mobile menu button -->
+                    <button type="button"
+                            class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
+                        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+
+        <!-- Mobile Navigation Menu (Hidden by default) -->
+        <div class="md:hidden hidden no-print">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-gray-50 border-t border-gray-200">
+                <a href="#overview"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Overview</a>
+                <a href="#analysis"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Analysis</a>
+                <a href="#issues"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Issues</a>
+                <a href="#stats"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Stats</a>
+                <a href="#sections"
+                   class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Sections</a>
+            </div>
+        </div>
+
+        <!-- Title and Date Section -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 mt-2">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-0">
+                    🇺🇸 {{ data.legis_num }}
+                    {% if data.money_sentences %}
+                    <a href="#money_commentary" class="link">
+                        <i class="ti ti-coin text-accent" title="This bill references monetary amounts.  See the Section Details below."></i>
+                    </a>
+                    {% endif %}
+                </h1>
+                <div class="text-sm text-gray-600">
+                    Date: {{ data.date }}
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Spacer to prevent content from hiding under fixed header -->
+    <div class="h-40"></div>
+
+    <div class="grid grid-cols-12 gap-8">
+        <div class="col-span-12 lg:col-span-8">
+            <div id="overview" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Overview</h2>
+                <div class="prose prose-sm max-w-none text-justify mb-6">
+                    <h3 class="text-xl font-medium mb-2">Title</h3>
+                    <p class="mb-4">{{ data.title }}</p>
+
+                    <h3 class="text-xl font-medium mb-2">ELI5<span class="ai-tag">AI</span></h3>
+                    <p>{{ data.eli5 }}</p>
+
+                    <h3 class="text-xl font-medium mb-2 mt-4">Summary<span class="ai-tag">AI</span></h3>
+                    <p>{{ data.summary }}</p>
+                </div>
+
+                <div class="border-t pt-4 mb-8">
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-sm font-medium text-secondary">Congress:</span>
+                            <span class="text-sm ml-2">{{ data.congress }}</span>
+                        </div>
+                        <div>
+                            <span class="text-sm font-medium text-secondary">Session:</span>
+                            <span class="text-sm ml-2">{{ data.session }}</span>
+                        </div>
+                        <div>
+                            <span class="text-sm font-medium text-secondary">Chamber:</span>
+                            <span class="text-sm ml-2">{{ data.current_chamber }}</span>
+                        </div>
+                        <div>
+                            <span class="text-sm font-medium text-secondary">Status:</span>
+                            <span class="text-sm ml-2">{{ data.bill_version_description }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="border-t pt-4">
+                    <h3 class="text-xl font-medium mb-2">Keywords<span class="ai-tag">AI</span></h3>
+                    <div class="flex flex-wrap">
+                        {% for keyword in data.keywords %}
+                            <span class="tag text-xs px-2 py-1 rounded mr-2 mb-2">{{ keyword }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="border-t pt-4 mb-8">
+                    <h2 class="text-2xl font-semibold mb-4">Sources</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <a class="no-print link" target="_blank"
+                               href="https://www.govinfo.gov/content/pkg/{{ data.package_id }}/xml/{{ data.package_id }}.xml">
+                                <i class="ti ti-external-link ml-1"></i>
+                                <span class="text-sm font-medium text-secondary">Bill Text</span>
+                            </a>
+                        </div>
+                        <div>
+                            <a class="no-print link" target="_blank"
+                               href="https://www.govinfo.gov/app/details/{{ data.package_id }}">
+                                <i class="ti ti-external-link ml-1"></i>
+                                <span class="text-sm font-medium text-secondary">Bill Metadata</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="analysis" class="bg-white rounded-lg shadow-lg p-6 mb-8 mt-8">
+                <h2 class="text-2xl font-semibold mb-4">Analysis<span class="ai-tag">AI</span></h2>
+                <div class="prose prose-sm max-w-none text-justify markdown">{{ data.commentary }}</div>
+            </div>
+
+            <div id="issues" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Key Issues<span class="ai-tag">AI</span></h2>
+                <ul class="space-y-4">
+                    {% for issue in data.issues %}
+                        <li class="flex items-start">
+                            <i class="ti ti-chevron-right mt-1 mr-2 text-accent"></i>
+                            <span class="text-justify">{{ issue }}</span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            {% if data.money_commentary %}
+                <div id="money_commentary" class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <h2 class="text-2xl font-semibold mb-4">SHOW ME THE MONEY<span class="ai-tag">AI</span></h2>
+                    <div class="prose prose-sm max-w-none text-justify markdown">{{ data.money_commentary }}</div>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="col-span-12 lg:col-span-4" id="stats">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8 sticky top-4">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-4">Bill Statistics</h2>
+
+                <div class="space-y-4">
+                    <div class="border-b pb-4">
+                        <h3 class="text-sm font-medium text-gray-600 mb-2">Size</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <span class="text-sm text-gray-600">Sections:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.num_sections_decile == 1 %}text-emerald-700
+                                {% elif data.num_sections_decile == 2 %}text-emerald-600
+                                {% elif data.num_sections_decile == 3 %}text-green-600
+                                {% elif data.num_sections_decile == 4 %}text-green-700
+                                {% elif data.num_sections_decile == 5 %}text-yellow-600
+                                {% elif data.num_sections_decile == 6 %}text-yellow-700
+                                {% elif data.num_sections_decile == 7 %}text-orange-600
+                                {% elif data.num_sections_decile == 8 %}text-orange-700
+                                {% elif data.num_sections_decile == 9 %}text-red-600
+                                {% elif data.num_sections_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:,}".format(data.num_sections) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.num_sections_decile }} of bills by section count
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Sentences:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.num_sentences_decile == 1 %}text-emerald-700
+                                {% elif data.num_sentences_decile == 2 %}text-emerald-600
+                                {% elif data.num_sentences_decile == 3 %}text-green-600
+                                {% elif data.num_sentences_decile == 4 %}text-green-700
+                                {% elif data.num_sentences_decile == 5 %}text-yellow-600
+                                {% elif data.num_sentences_decile == 6 %}text-yellow-700
+                                {% elif data.num_sentences_decile == 7 %}text-orange-600
+                                {% elif data.num_sentences_decile == 8 %}text-orange-700
+                                {% elif data.num_sentences_decile == 9 %}text-red-600
+                                {% elif data.num_sentences_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:,}".format(data.num_sentences) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.num_sentences_decile }} of bills by sentence count
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Words:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.num_tokens_decile == 1 %}text-emerald-700
+                                {% elif data.num_tokens_decile == 2 %}text-emerald-600
+                                {% elif data.num_tokens_decile == 3 %}text-green-600
+                                {% elif data.num_tokens_decile == 4 %}text-green-700
+                                {% elif data.num_tokens_decile == 5 %}text-yellow-600
+                                {% elif data.num_tokens_decile == 6 %}text-yellow-700
+                                {% elif data.num_tokens_decile == 7 %}text-orange-600
+                                {% elif data.num_tokens_decile == 8 %}text-orange-700
+                                {% elif data.num_tokens_decile == 9 %}text-red-600
+                                {% elif data.num_tokens_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:,}".format(data.num_tokens) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.num_tokens_decile }} of bills by token (word) count
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Characters:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.num_characters_decile == 1 %}text-emerald-700
+                                {% elif data.num_characters_decile == 2 %}text-emerald-600
+                                {% elif data.num_characters_decile == 3 %}text-green-600
+                                {% elif data.num_characters_decile == 4 %}text-green-700
+                                {% elif data.num_characters_decile == 5 %}text-yellow-600
+                                {% elif data.num_characters_decile == 6 %}text-yellow-700
+                                {% elif data.num_characters_decile == 7 %}text-orange-600
+                                {% elif data.num_characters_decile == 8 %}text-orange-700
+                                {% elif data.num_characters_decile == 9 %}text-red-600
+                                {% elif data.num_characters_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:,}".format(data.num_characters) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.num_characters_decile }} of bills by character count
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-sm font-medium text-gray-600 mb-2">Language</h3>
+                        <div class="grid grid-cols-2 gap-2">
+                            <div>
+                                <span class="text-sm text-gray-600">Nouns:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_nouns) }}</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Verbs:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_verbs) }}</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Adjectives:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_adjectives) }}</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Adverbs:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_adverbs) }}</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Punctuation:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_punctuations) }}</span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Numbers:</span>
+                                <span class="text-sm font-medium text-gray-800 ml-1">{{ "{:,}".format(data.num_numbers) }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-b pb-4">
+                        <h3 class="text-sm font-medium text-gray-600 mb-2">Complexity</h3>
+                        <div class="grid grid-cols-1 gap-2">
+                            <div>
+                                <span class="text-sm text-gray-600">Average Word Length:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.avg_token_length_decile == 1 %}text-emerald-700
+                                {% elif data.avg_token_length_decile == 2 %}text-emerald-600
+                                {% elif data.avg_token_length_decile == 3 %}text-green-600
+                                {% elif data.avg_token_length_decile == 4 %}text-green-700
+                                {% elif data.avg_token_length_decile == 5 %}text-yellow-600
+                                {% elif data.avg_token_length_decile == 6 %}text-yellow-700
+                                {% elif data.avg_token_length_decile == 7 %}text-orange-600
+                                {% elif data.avg_token_length_decile == 8 %}text-orange-700
+                                {% elif data.avg_token_length_decile == 9 %}text-red-600
+                                {% elif data.avg_token_length_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:0.2f}".format(data.avg_token_length) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.avg_token_length_decile }} of bills by average token (word) length
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Average Sentence Length:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.avg_sentence_length_decile == 1 %}text-emerald-700
+                                {% elif data.avg_sentence_length_decile == 2 %}text-emerald-600
+                                {% elif data.avg_sentence_length_decile == 3 %}text-green-600
+                                {% elif data.avg_sentence_length_decile == 4 %}text-green-700
+                                {% elif data.avg_sentence_length_decile == 5 %}text-yellow-600
+                                {% elif data.avg_sentence_length_decile == 6 %}text-yellow-700
+                                {% elif data.avg_sentence_length_decile == 7 %}text-orange-600
+                                {% elif data.avg_sentence_length_decile == 8 %}text-orange-700
+                                {% elif data.avg_sentence_length_decile == 9 %}text-red-600
+                                {% elif data.avg_sentence_length_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:0.2f}".format(data.avg_sentence_length) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.avg_sentence_length_decile }} of bills by average sentence length
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Token Entropy:</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.token_entropy_decile == 1 %}text-emerald-700
+                                {% elif data.token_entropy_decile == 2 %}text-emerald-600
+                                {% elif data.token_entropy_decile == 3 %}text-green-600
+                                {% elif data.token_entropy_decile == 4 %}text-green-700
+                                {% elif data.token_entropy_decile == 5 %}text-yellow-600
+                                {% elif data.token_entropy_decile == 6 %}text-yellow-700
+                                {% elif data.token_entropy_decile == 7 %}text-orange-600
+                                {% elif data.token_entropy_decile == 8 %}text-orange-700
+                                {% elif data.token_entropy_decile == 9 %}text-red-600
+                                {% elif data.token_entropy_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:0.2f}".format(data.token_entropy) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.token_entropy_decile }} of bills by token entropy
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <span class="text-sm text-gray-600">Readability (ARI):</span>
+                                <span class="text-sm font-medium ml-1 group relative cursor-help
+                                {% if data.ari_raw_decile == 1 %}text-emerald-700
+                                {% elif data.ari_raw_decile == 2 %}text-emerald-600
+                                {% elif data.ari_raw_decile == 3 %}text-green-600
+                                {% elif data.ari_raw_decile == 4 %}text-green-700
+                                {% elif data.ari_raw_decile == 5 %}text-yellow-600
+                                {% elif data.ari_raw_decile == 6 %}text-yellow-700
+                                {% elif data.ari_raw_decile == 7 %}text-orange-600
+                                {% elif data.ari_raw_decile == 8 %}text-orange-700
+                                {% elif data.ari_raw_decile == 9 %}text-red-600
+                                {% elif data.ari_raw_decile == 10 %}text-red-700
+                                {% endif %}">
+                                    {{ "{:0.2f}".format(data.ari_raw) }}
+                                    <!-- Tooltip -->
+                                    <span class="invisible group-hover:visible absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-gray-800 text-white text-xs rounded whitespace-nowrap">
+                                        Decile {{ data.ari_raw_decile }} of bills by Automated Readability Index (ARI)
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-600 mb-2">Key Phrases<span class="ai-tag">AI</span>
+                        </h3>
+                        <div class="max-h-64 overflow-y-auto">
+                            <table class="w-full text-sm">
+                                <tbody class="divide-y divide-gray-200">
+                                {% for entity in data.entity_counts.most_common() %}
+                                    <tr>
+                                        <td class="py-2 text-gray-800">{{ entity[0] }}</td>
+                                        <td class="py-2 text-gray-600 text-right">{{ "{:,}".format(entity[1]) }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-gray-500 italic mt-2">
+                            <sup class="text-blue-600">*</sup> Low-relevance entities hidden
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-span-12" id="sections">
+            <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                <h2 class="text-2xl font-semibold mb-4">Detailed Section Analysis</h2>
+
+                <div class="prose prose-sm max-w-none space-y-8 border-2 p-4 rounded mb-8 font-medium">
+                    <p><strong>The order, numbering, and names below are based on the original bill text.</strong></p>
+                    <p>Please refer to the original bill text for the full context of each section.</p>
+                </div>
+
+                <div class="prose prose-sm max-w-none space-y-8">
+                    {% for section in data.sections %}
+                        <div class="border-b border-gray-200 pb-6 last:border-b-0">
+                            <div class="flex items-baseline mb-3">
+                                <h3 class="text-xl font-medium text-gray-800">{%  if section.enum %}{{ section.enum }}{% endif %}{% if section.header %} {{ section.header }}{% endif %}</h3>
+                                <a target="_blank" class="text-sm text-accent ml-2"
+                                   href="https://www.govinfo.gov/content/pkg/{{ data.package_id }}/xml/{{ data.package_id }}.xml#{{ section.toc_id }}">
+                                    <i class="ti ti-viewfinder"></i> Read
+                                </a>
+                            </div>
+
+                            <div class="bg-gray-50 p-4 rounded mb-4">
+                                <h4 class="text-sm font-semibold text-gray-600 mb-2">Summary<span
+                                        class="ai-tag">AI</span></h4>
+                                <p class="text-gray-700 leading-relaxed">{{ section.summary }}</p>
+                            </div>
+
+
+                            {% if section.issues %}
+                                <div class="mt-4">
+                                    <h4 class="text-sm font-semibold text-gray-600 mb-2">Key Points<span class="ai-tag">AI</span>
+                                    </h4>
+                                    <ul class="space-y-2">
+                                        {% for issue in section.issues %}
+                                            <li class="flex items-start pl-4">
+                                                <i class="ti ti-circle-dot mt-1.5 mr-2 text-accent text-xs"></i>
+                                                <span class="text-sm text-gray-600">{{ issue }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            {% if section.money_sentences %}
+                                <div class="mt-4">
+                                    <h4 class="text-sm font-semibold text-gray-600 mb-2">SHOW ME THE MONEY<span
+                                            class="ai-tag">AI</span>
+                                    </h4>
+                                    <ul class="space-y-2">
+                                        {% for sentence in section.money_sentences %}
+                                            <li class="flex items-start pl-4">
+                                                <i class="ti ti-coin mt-1.5 mr-2 text-accent text-xs"></i>
+                                                <span class="text-sm text-gray-600">{{ sentence }}</span>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

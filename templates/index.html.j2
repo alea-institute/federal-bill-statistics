@@ -1,0 +1,64 @@
+{% extends "_base.html.j2" %}
+
+{% block title %}US Federal Bill Analysis{% endblock %}
+
+{% block description %}Analysis of US federal bills using artificial intelligence{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8 max-w-6xl">
+    <header class="mb-12 text-center">
+        <h1 class="text-4xl font-semibold text-gray-800">usbills.ai</h1>
+        <p class="text-lg text-gray-600">An <a target="_blank" class="link" href="https://github.com/alea-institute/federal-bill-statistics/">open source project</a> to make US Federal legislation more accessible.</p>
+        <p class="mt-4 text-sm text-gray-600">An <a target="_blank" class="link" href="https://aleainstitute.ai/">ALEA Institute</a> project</p>
+    </header>
+
+    <div class="bg-white rounded-lg shadow-lg p-4 sm:p-8">
+        {% for month, month_bills in bills.items() %}
+        <div class="mb-8 last:mb-0">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">{{ month }}</h2>
+            <div class="space-y-4">
+                {% for bill in month_bills %}
+                <div class="flex flex-col p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div class="flex flex-col lg:flex-row lg:items-start gap-4">
+                        <div class="flex-1 space-y-2">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                                <h3 class="font-medium text-lg">
+                                    <a href="{{ bill.slug }}.html" class="text-blue-600 hover:text-blue-800 hover:underline">{{ bill.legis_num }}</a>
+                                </h3>
+                                <div class="flex items-center gap-4">
+                                    <span class="text-sm text-gray-500">{{ bill.date }}</span>
+                                    <div class="flex gap-2">
+                                        <a href="{{ bill.slug }}.pdf" class="text-gray-500 hover:text-gray-700" title="Download PDF">
+                                            <i class="ti ti-file-type-pdf"></i>
+                                        </a>
+                                        <a href="{{ bill.slug }}.json" class="text-gray-500 hover:text-gray-700" title="Download JSON">
+                                            <i class="ti ti-code-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm">{{ bill.title }}</p>
+                            <div class="text-gray-400 text-xs"><strong>ELI5<span class="ai-tag">AI</span></strong>: {{ bill.eli5 }}</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-4">
+                            <div>
+                                <span class="font-medium">Sections:</span> {{ bill.num_sections }}
+                            </div>
+                            <div>
+                                <span class="font-medium">Pages:</span> {{ bill.num_pages }}
+                            </div>
+                            <div>
+                                <span class="font-medium">Words:</span> {{ "{:,}".format(bill.num_tokens) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
