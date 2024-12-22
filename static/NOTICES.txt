@@ -1,0 +1,7 @@
+This folder vendors static files from Tabler and Tailwind:
+
+Tabler Icons are available under an MIT License here:
+https://github.com/tabler/tabler-icons
+
+Tailwind CSS is available under an MIT License here:
+https://github.com/tailwindlabs/tailwindcss
