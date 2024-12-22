@@ -1,8 +1,9 @@
 {% extends "_base.html.j2" %}
 
-{% block title %}US Federal Bill Analysis{% endblock %}
+{% block title %}US Federal Bill Statistics{% endblock %}
 
 {% block description %}Analysis of US federal bills using artificial intelligence{% endblock %}
+
 
 {% block content %}
 <div class="container mx-auto px-4 py-8 max-w-6xl">
@@ -59,6 +60,21 @@
             </div>
         </div>
         {% endfor %}
+
+        {% if archives %}
+        <div class="mt-12">
+            <h2 class="text-2xl font-semibold mb-4 text-gray-800">Archives</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {% for archive in archives %}
+                <a href="index-{{ archive.year_month }}.html"
+                   class="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+                    <div class="font-medium text-gray-800">{{ archive.month_name }}</div>
+                    <div class="text-sm text-gray-600">{{ archive.count }} bills</div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

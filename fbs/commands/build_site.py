@@ -190,9 +190,9 @@ def generate_main_index(
     # Sort groups by year-month descending
     sorted_months = sorted(bill_groups.keys(), reverse=True)
 
-    # Get recent months and archive months
-    recent_months = sorted_months[:3]
-    archive_months = sorted_months[3:]
+    # Get recent months (current and previous) and archive months
+    recent_months = sorted_months[:2]  # Only current and previous month
+    archive_months = sorted_months[2:]  # All other months
 
     # Build recent bills dict
     recent_bills = {}
@@ -219,8 +219,8 @@ def generate_main_index(
         total_bills=total_bills,
     )
 
-    with open(output_path / "index.html", "w") as f:
-        f.write(html)
+    with open(output_path / "index.html", "w") as output_file:
+        output_file.write(html)
 
 
 def render_privacy_notice(template_dir: Path, output_path: Path) -> None:
