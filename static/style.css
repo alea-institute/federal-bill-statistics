@@ -9,7 +9,7 @@
 
 body {
     font-family: "Noto Sans", sans-serif;
-    font-optical-sizing: auto; 
+    font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
     background-color: var(--background-color);
@@ -57,6 +57,44 @@ body {
     font-weight: bold;
 }
 
+.markdown h1 {
+    font-size: 2em;
+    margin: 1.5em 0;
+}
+
+.markdown h2 {
+    font-size: 1.5em;
+    margin: 1.25em 0;
+}
+
+.markdown h3 {
+    font-size: 1.25em;
+    margin: 1em 0;
+}
+
+.markdown h4 {
+    font-size: 1em;
+    margin: 0.75em 0;
+}
+
+.markdown h5 {
+    font-size: 0.875em;
+    margin: 0.5em 0;
+}
+
+.markdown ul, .markdown ol {
+    margin: 1em 0 1em 0.5em;
+}
+
+.markdown li {
+    margin: 0.25em 0.25em 0.25em 0.5em;
+}
+
+.markdown p {
+    margin: 1em 0;
+}
+
+
 :target {
     scroll-margin-top: 160px;
 }
@@ -64,6 +102,7 @@ body {
 html {
     scroll-behavior: smooth;
 }
+
 
 @media print {
     @page {
