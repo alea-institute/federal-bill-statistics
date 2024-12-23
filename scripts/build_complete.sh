@@ -12,8 +12,15 @@ poetry update
 # start by emptying the dist/ folder
 rm -rf dist/*
 
+# update tailwind
+tailwind -i ./templates/tailwind.css -o ./static/tailwind.css
+
 # copy the static/ folder into dist/
 cp -r static/ dist/
+
+# copy favicons
+cp static/favicon.ico dist/
+cp static/favicon.png dist/
 
 # start a python http server on localhost:9000 to serve the static files for rendering
 # make sure to trap the PID so we can kill it after

@@ -1,0 +1,73 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #334155;
+    --primary-hover: #1e293b;
+    --secondary-color: #64748b;
+    --background-color: #f8fafc;
+    --surface-color: #ffffff;
+    --accent-color: #475569;
+  }
+
+  body {
+    @apply font-sans bg-[var(--background-color)];
+    font-optical-sizing: auto;
+  }
+
+  :target {
+    scroll-margin-top: 160px;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-[var(--secondary-color)] no-underline px-4 py-2 rounded-md transition-colors duration-200;
+  }
+
+  .nav-link:hover {
+    @apply bg-[var(--accent-color)] text-[var(--surface-color)];
+  }
+
+  .btn-primary {
+    @apply bg-[var(--primary-color)] text-[var(--surface-color)] transition-colors duration-200;
+  }
+
+  .btn-primary:hover {
+    @apply bg-[var(--primary-hover)];
+  }
+
+  .tag {
+    @apply bg-[#cdcdcdcc] text-[#343434cc];
+  }
+
+  .ai-tag {
+    @apply text-blue-500 font-bold text-xs align-super ml-1;
+  }
+
+  .link {
+    @apply text-blue-500 font-bold;
+  }
+}
+
+@layer utilities {
+  @media print {
+    @page {
+      margin: 0;
+    }
+
+    body {
+      @apply bg-white m-[1.6cm];
+    }
+
+    .no-print {
+      @apply hidden !important;
+    }
+  }
+}

@@ -11,6 +11,9 @@ fi
 # keep poetry up to date
 poetry update
 
+# update tailwind
+tailwind -i ./templates/tailwind.css -o ./static/tailwind.css
+
 # copy the static/ folder into dist/
 cp -r static/ dist/
 

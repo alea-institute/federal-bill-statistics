@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
             <nav class="flex items-center justify-between h-16">
                 <!-- Left side - Back button -->
                 <div class="flex-shrink-0">
-                    <a href="index.html" class="text-gray-600 hover:text-gray-900 transition-colors">
+                    <a href="/index.html" class="text-gray-600 hover:text-gray-900 transition-colors" title="Back to Home" aria-label="Back to Home">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                   d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
@@ -84,8 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         JSON
                     </a>
 
-                    <!-- Mobile menu button -->
-                    <button type="button"
+                    <button type="button" name="menu" aria-label="Main Menu" title="Main Menu"
                             class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">
                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -119,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     🇺🇸 {{ data.legis_num }}
                     {% if data.money_sentences %}
                     <a href="#money_commentary" class="link">
-                        <i class="ti ti-coin text-accent" title="This bill references monetary amounts.  See the Section Details below."></i>
+                        <img src="/static/icons/coin.svg" class="ml-1 w-4 h-4" alt="This bill references monetary amounts.  See the Section Details below." title="This bill references monetary amounts.  See the Section Details below.">
                     </a>
                     {% endif %}
                 </h1>
@@ -184,14 +183,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         <div>
                             <a class="no-print link" target="_blank"
                                href="https://www.govinfo.gov/content/pkg/{{ data.package_id }}/xml/{{ data.package_id }}.xml">
-                                <i class="ti ti-external-link ml-1"></i>
+                                <img src="/static/icons/external-link.svg" class="ml-1 w-4 h-4 inline-flex" alt="External Link" title="External Link" />
                                 <span class="text-sm font-medium text-secondary">Bill Text</span>
                             </a>
                         </div>
                         <div>
                             <a class="no-print link" target="_blank"
                                href="https://www.govinfo.gov/app/details/{{ data.package_id }}">
-                                <i class="ti ti-external-link ml-1"></i>
+                                <img src="/static/icons/external-link.svg" class="ml-1 w-4 h-4 inline-flex" alt="External Link" title="External Link" />
                                 <span class="text-sm font-medium text-secondary">Bill Metadata</span>
                             </a>
                         </div>
@@ -209,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <ul class="space-y-4">
                     {% for issue in data.issues %}
                         <li class="flex items-start">
-                            <i class="ti ti-chevron-right mt-1 mr-2 text-accent"></i>
+                            <img src="/static/icons/chevron-right.svg" class="ml-1 mr-1 w-6 h-6" alt="Key Issue" title="Key Issue" />
                             <span class="text-justify">{{ issue }}</span>
                         </li>
                     {% endfor %}
@@ -478,7 +477,8 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <h3 class="text-xl font-medium text-gray-800">{%  if section.enum %}{{ section.enum }}{% endif %}{% if section.header %} {{ section.header }}{% endif %}</h3>
                                 <a target="_blank" class="text-sm text-accent ml-2"
                                    href="https://www.govinfo.gov/content/pkg/{{ data.package_id }}/xml/{{ data.package_id }}.xml#{{ section.toc_id }}">
-                                    <i class="ti ti-viewfinder"></i> Read
+                                    <!-- make the image inline and small 4px -->
+                                    <img src="/static/icons/viewfinder.svg" class="ml-1 w-4 h-4 inline-flex" alt="Viewfinder" title="Viewfinder" /> Read
                                 </a>
                             </div>
 
@@ -493,10 +493,10 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <div class="mt-4">
                                     <h4 class="text-sm font-semibold text-gray-600 mb-2">Key Points<span class="ai-tag">AI</span>
                                     </h4>
-                                    <ul class="space-y-2">
+                                    <ul class="space-y-2 list-disc list-inside">
                                         {% for issue in section.issues %}
-                                            <li class="flex items-start pl-4">
-                                                <i class="ti ti-circle-dot mt-1.5 mr-2 text-accent text-xs"></i>
+                                            <li class="flex items-start pl-4 text-gray-700">
+                                                <span class="mr-2 text-gray-600">•</span>
                                                 <span class="text-sm text-gray-600">{{ issue }}</span>
                                             </li>
                                         {% endfor %}
@@ -512,7 +512,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                     <ul class="space-y-2">
                                         {% for sentence in section.money_sentences %}
                                             <li class="flex items-start pl-4">
-                                                <i class="ti ti-coin mt-1.5 mr-2 text-accent text-xs"></i>
+                                                <img src="/static/icons/coin.svg" class="ml-1 w-4 h-4" alt="Monetary Amount" title="Monetary Amount" />
                                                 <span class="text-sm text-gray-600">{{ sentence }}</span>
                                             </li>
                                         {% endfor %}
